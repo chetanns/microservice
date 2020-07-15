@@ -1,0 +1,32 @@
+node {
+
+    stage('Cleanup') {
+        cleanWs()
+    }
+
+    stage('Checkout') {
+
+        echo "checkout the code"
+
+        git url: 'https://github.com/chetanns/microservice.git'
+    }
+
+    stage('Build') {
+
+        echo "Starting the build"
+
+        sh './gradlew clean build'
+    }
+
+    stage('Unit Test') {
+        echo "Run the Unit test"
+
+        sh './gradlew test'
+    }
+
+    stage("Docker Build") {
+        echo "Build the docker image"
+
+        sh 'docker build -t sample/microservice .'
+    }
+}
