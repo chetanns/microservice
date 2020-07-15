@@ -1,0 +1,11 @@
+#Run zipkin server in docker
+docker run -d -p 9411:9411 openzipkin/zipkin
+
+#Build docker images
+docker build docker-spring-boot .
+
+#Create a new container and run it
+docker run -d --name docker-spring-boot -p 8080:8080 docker-spring-boot
+
+#Start the container that has already been created and stopped.
+docker start docker-spring-boot
